@@ -3,6 +3,10 @@ const showSignin = (req, res) => {
     res.render('signin.html');
 };
 
+//表单提交
+exports.handleSignin = (req, res) => {
+    console.log('客户端发送表单成功');
+}
 
 //导出所有方法
 exports.showSignin = showSignin;

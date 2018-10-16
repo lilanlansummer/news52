@@ -44,17 +44,11 @@
         // 2. 取消默认提交
         // 3. 获取表单数据
         // 4. $.post发送ajax请求
-
-        // 
         $('#signin_form').on('submit', function(e) {
             e.preventDefault();
             var formdata = $(this).serialize();
-            // console.log(formdata);
             $.post('/signin', formdata, function(data) {
-                // console.log(data);
                 if (data.code === 200) {
-                    // alert(data.message);
-                    // 客户端跳转页面
                     window.location.href = '/';
                 } else {
                     alert(data.message);

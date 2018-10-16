@@ -7,6 +7,7 @@ const c_user = require('./controllers/c_user')
 const router = express.Router();
 //3.router.get()  使用路由对象,监听端口,实现函数
 router.get('/signin', c_user.showSignin);
+router.post('/signin', c_user.handleSignin);
 
 //4.导出router
 module.exports = router;
