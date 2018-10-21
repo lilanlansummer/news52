@@ -13,14 +13,14 @@
             <div class="col-md-5">
                 <form id="form" action="/topic/edit">
                     <!-- 表单隐藏域 -->
-                    <input type="hidden" id="topic_id" value="">
+                    <input type="hidden" id="topic_id" value="{{topic.id}}">
                     <div class="form-group">
                         <label for="title">标题</label>
-                        <input type="text" class="form-control" id="title" name="title" value="话题标题">
+                        <input type="text" class="form-control" id="title" name="title" value="{{topic.title}}">
                     </div>
                     <div class="form-group">
                         <label for="content">内容</label>
-                        <textarea class="form-control" id="content" name="content" rows="10">话题内容</textarea>
+                        <textarea class="form-control" id="content" name="content" rows="10">{{topic.content}}</textarea>
                     </div>
                     <button type="submit" class="btn btn-default">提交</button>
                 </form>
@@ -32,6 +32,27 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script>
         // 处理表单提交
+        //1.绑定事件 
+        $('#form').on('submit', function(e) {
+            //2.取消默认事件
+            e.preventDefault();
+            //3.获取表单数据
+            var formdata = $(this).serialize();
+            //服务端:获取body->数据库修改数据update `topics` set name=? content=? where id=?
+            //req.params.topicID
+            //动态的url标识i
+            var url = '/topic/' + '{{topic.id}}' + '/edit';
+            console.log(url);
+            //4.ajax
+            $.post(url, formdata, function(data) {
+                console.log(data);
+                //根据返回的响应
+                if (data.code === 200) {
+                    //跳转到详情页
+                    window.location.href = '/topic/' + '{{topic.id}}';
+                }
+            });
+        });
     </script>
 </body>
 

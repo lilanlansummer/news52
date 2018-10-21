@@ -21,8 +21,10 @@
                 <a class="btn btn-success" href="/">返回首页</a> {{else}}
                 <article class="markdown-body">
                     <h1>{{topic.title}}</h1>
-                    <a href="/topic/detail/edit">编辑</a>
-                    <a href="/topic/detail/delete" id="delete_topic">删除</a>
+                    <!-- 话题的创建者===用户登录 -->
+                    {{if topic.userId===sessionUserId}}
+                    <a href="/topic/{{topic.id}}/edit">编辑</a>
+                    <a href="/topic/{{topic.id}}/delete" id="delete_topic">删除</a> {{/if}}
                     <hr>{{topic.content}}
                 </article>
                 <div class="panel panel-default">
@@ -56,6 +58,26 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script>
         // 点击删除
+        //1.绑定事件
+        $('#delete_topic').on('click', function(e) {
+            //2.取消默认事件
+            e.preventDefault();
+            //3.如果点击时取消什么事不干,如果点击确定删除当前数据
+            if (!window.confirm('确定删除吗?')) {
+                return;
+            }
+            const url = '/topic/' + '{{topic.id}}' + '/delete';
+            //ajax发送请求
+            $.post(url, function(data) {
+                // console.log(data);
+                if (data.code === 200) {
+                    //跳转到列表页
+                    window.location.href = "/";
+                }
+
+            });
+
+        })
     </script>
 </body>
 

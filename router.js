@@ -19,8 +19,14 @@ router.get('/signin', c_user.showSignin)
     .get('/', c_topic.showTopic)
     .get('/topic/create', c_topic.createTopic)
     .post('/createTopic', c_topic.handleCreateTopic)
+    //动态路由:固定的
     .get('/topic/:topicID', c_topic.showDetail)
-    .get('/signout', c_user.handleSignout);
+    .get('/signout', c_user.handleSignout)
+    .get('/topic/:topicID/edit', c_topic.showEdit)
+    .post('/topic/:topicID/edit', c_topic.handleEditTopic)
+    .post('/topic/:topicID/delete', c_topic.handleDeleTopic)
+    .get('/signup', c_user.showSignup)
+    .post('/signup', c_user.handleSignup);
 
 //4.导出router
 module.exports = router;
